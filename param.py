@@ -25,7 +25,7 @@ parser.add_argument('--add_rnd_policy', action='store_true',
 # -- Trace Generation --
 parser.add_argument('--trace_type', type=str, choices=['real', 'random', 'simple', 'process'], default='process',
                     help='Which trace type to use (default: real)')
-parser.add_argument('--trace_sim_count', type=int, default=10000,
+parser.add_argument('--trace_sim_count', type=int, default=2000,
                     help='Number of generated traces')
 
 
