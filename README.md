@@ -18,7 +18,7 @@ cd ..
 ```
 If the compilation is successful, use this command:
 ```
-python3.py run_exp --output_folder OUTPUT_DIR
+python3 run_exp.py --output_folder OUTPUT_DIR
 ```
 This command will likely take some time to execute. The outputs will also be large (~10GB).
 
