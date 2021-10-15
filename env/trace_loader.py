@@ -63,20 +63,7 @@ def load_traces():
     else:
         raise ValueError('No such trace generation type')
 
-    if config.reverse_thr:
-        for i in range(len(all_traces)):
-            w_trace = get_weights(all_traces[i][0])
-            trace_avg = np.average(all_traces[i][1], weights=w_trace)
-            all_bandwidth = [1 / thr for thr in all_traces[i][1]]
-            trace_avg_inv = np.average(all_bandwidth, weights=w_trace)
-            all_traces[i] = (all_traces[i][0], [thr_inv * trace_avg / trace_avg_inv for thr_inv in all_bandwidth])
-
-    for i in range(len(all_traces)):
-        w_trace = get_weights(all_traces[i][0])
-        trace_avg = np.average(all_traces[i][1], weights=w_trace)
-        print(f'{i},{trace_avg}')
-
-    if config.slow_start:
+    if not config.disable_slow_start:
         np.save(config.output_folder + '/rtts.npy', all_rtts)
 
     return all_traces, all_rtts
