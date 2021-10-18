@@ -20,7 +20,7 @@ def run_trajectories(env, policy_agent, save_path):
     """
 
     # shorthand
-    num_traces = len(env.all_traces)        # Number of traces to consider, by default 10000
+    num_traces = len(env.all_traces)        # Number of traces to consider, by default 2000
     len_vid = env.total_num_chunks          # Length of the video
 
     obs, _ = env.reset()                    # Reset the environment
