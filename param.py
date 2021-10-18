@@ -12,7 +12,7 @@ parser.add_argument('--logging_level', type=str, default='info',
                     help='logging level (default: info)')
 parser.add_argument('--log_to', type=str, default='print',
                     help='logging destination, "print" or a filepath (default: print)')
-parser.add_argument('--output_folder', type=str, required=True,
+parser.add_argument('--output_folder', type=str, default='./output/',
                     help='Output folder')
 parser.add_argument('--integrate_thr', action='store_false',
                     help='Use integrated throughput trace')

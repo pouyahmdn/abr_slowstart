@@ -18,11 +18,11 @@ cd ..
 ```
 If the compilation is successful, use this command:
 ```
-python3 run_exp.py --output_folder OUTPUT_DIR
+python3 run_exp.py
 ```
 This command will likely take some time to execute (10-20 minutes). The outputs will also be large (~2GB).
 
-The result is 6 numpy arrays in `OUTPUT_DIR`. Each include 2000 streaming sessions generated using one policy. Each session is 490 chunks in length.
+The result is 6 numpy arrays in `./output/`. Each include 2000 streaming sessions generated using one policy. Each session is 490 chunks in length.
 
 For each chunk, there is an array of length (19 + 1 + 1 + 19 + 1). In order, this array consists of:
 * An observation, with 19 dimensions

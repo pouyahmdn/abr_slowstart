@@ -1,9 +1,15 @@
+import os
+
 import numpy as np
 
 from env.abr import ABRSimEnv
+from param import config
 
 
 def run_trajectories():
+    # Create output folder
+    os.makedirs(config.output_folder, exist_ok=True)
+
     # Launch ABR environment
     print('Setting up environment..')
     env = ABRSimEnv()
