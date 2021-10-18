@@ -4,33 +4,34 @@ from env.abr import ABRSimEnv
 
 
 def run_trajectories():
-
-    # set up environments for workers
+    # Launch ABR environment
     print('Setting up environment..')
     env = ABRSimEnv()
 
+    # Shorthand for number of actions
     act_len = env.action_space.n
 
-    # shorthand
+    # Number of traces we intend to run through, more gives us a better evaluation
     num_traces = 10
 
     for _ in range(num_traces):
-        # Choose specific trace and start from the initial point in the trace
+        # Done in reset: Randomly choose a trace and starting point in it
         obs, _ = env.reset()
         done = False
         t = 0
 
         while not done:
-            # choose action through policy
+            # Choose an action through random policy
             act = np.random.choice(act_len)
 
-            # take action
+            # Take the action
             next_obs, rew, done, info = env.step(act)
 
+            # Print some statistics
             print(f'At chunk {t}, the agent took action {act}, and got a reward {rew}')
             print(f'\t\tThe observation was {obs}')
 
-            # next state
+            # Going forward: the next state at point t becomes the current state at point t+1
             obs = next_obs
             t += 1
 

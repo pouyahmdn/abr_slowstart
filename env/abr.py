@@ -40,11 +40,6 @@ class ABRSimEnv(object):
         H Mao, R Netravali, M Alizadeh
         https://dl.acm.org/citation.cfm?id=3098843
 
-        Figure 1b, Section 6.2 and Appendix J
-        Variance Reduction for Reinforcement Learning in Input-Driven Environments.
-        H Mao, SB Venkatakrishnan, M Schwarzkopf, M Alizadeh.
-        https://openreview.net/forum?id=Hyg1G2AqtQ
-
         A Control-Theoretic Approach for Dynamic Adaptive Video Streaming over HTTP
         X Yin, A Jindal, V Sekar, B Sinopoli
         https://dl.acm.org/citation.cfm?id=2787486
