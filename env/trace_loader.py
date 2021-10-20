@@ -45,20 +45,23 @@ def load_chunk_sizes():
     return chunk_sizes
 
 
-def load_traces():
+def load_traces(seed=None):
     """
+    :type seed: int
     :rtype: (list of (np.ndarray | list, np.ndarray | list), np.ndarray)
     """
+    if seed is None:
+        seed = config.seed
     if config.trace_type == 'real':
-        all_traces, all_rtts = load_real_traces()
+        all_traces, all_rtts = load_real_traces(seed=seed)
     elif config.trace_type == 'random':
-        all_traces, all_rtts = load_sim_traces_random()
+        all_traces, all_rtts = load_sim_traces_random(seed=seed)
         np.save(config.output_folder + '/traces.npy', [trace[1] for trace in all_traces])
     elif config.trace_type == 'simple':
-        all_traces, all_rtts = load_sim_traces_simple()
+        all_traces, all_rtts = load_sim_traces_simple(seed=seed)
         np.save(config.output_folder + '/traces.npy', [trace[1] for trace in all_traces])
     elif config.trace_type == 'process':
-        all_traces, all_rtts = load_sim_traces_process()
+        all_traces, all_rtts = load_sim_traces_process(seed=seed)
         np.save(config.output_folder + '/traces.npy', [trace[1] for trace in all_traces])
     else:
         raise ValueError('No such trace generation type')
@@ -69,8 +72,9 @@ def load_traces():
     return all_traces, all_rtts
 
 
-def load_real_traces():
+def load_real_traces(seed):
     """
+    :type seed: int
     :rtype: (list of (np.ndarray | list, np.ndarray | list), np.ndarray)
     """
     # download video size folder if not existed
@@ -99,34 +103,38 @@ def load_real_traces():
 
         all_traces.append((all_t, all_bandwidth))
 
-    all_rtts = np.random.RandomState(config.seed).random(size=len(all_traces)) * 180 + 20
+    all_rtts = np.random.RandomState(seed).random(size=len(all_traces)) * 180 + 20
 
     return all_traces, all_rtts
 
 
-def load_sim_traces_random(length=490):
+def load_sim_traces_random(seed, length=490):
     """
+    :type seed: int
+    :type length: int
     :rtype: (list of (np.ndarray | list, np.ndarray | list), np.ndarray)
     """
     all_traces = []
-    rng = np.random.RandomState(config.seed)
+    rng = np.random.RandomState(seed)
     for i in range(config.trace_sim_count):
         low_thresh, high_thresh = uniform_thresh(4.5, 0.5, rng)
         all_t = np.arange(length)
         all_bandwidth = rng.random(size=length) * (high_thresh-low_thresh) + low_thresh
         all_traces.append((all_t, all_bandwidth))
 
-    all_rtts = np.random.RandomState(config.seed).random(size=len(all_traces)) * 180 + 20
+    all_rtts = np.random.RandomState(seed).random(size=len(all_traces)) * 180 + 20
 
     return all_traces, all_rtts
 
 
-def load_sim_traces_simple(length=490):
+def load_sim_traces_simple(seed, length=490):
     """
+    :type seed: int
+    :type length: int
     :rtype: (list of (np.ndarray | list, np.ndarray | list), np.ndarray)
     """
     all_traces = []
-    rng = np.random.RandomState(config.seed)
+    rng = np.random.RandomState(seed)
     for i in range(config.trace_sim_count):
         low_thresh, high_thresh = uniform_thresh(4.5, 0.5, rng)
         repeats = rng.choice(np.arange(4, 30), 2, replace=False)
@@ -147,16 +155,18 @@ def load_sim_traces_simple(length=490):
                 rep = rng.randint(low_repeat, high_repeat)
         all_traces.append((all_t, all_bandwidth))
 
-    all_rtts = np.random.RandomState(config.seed).random(size=len(all_traces)) * 180 + 20
+    all_rtts = np.random.RandomState(seed).random(size=len(all_traces)) * 180 + 20
 
     return all_traces, all_rtts
 
 
-def load_sim_traces_process(length=490):
+def load_sim_traces_process(seed, length=490):
     """
+    :type seed: int
+    :type length: int
     :rtype: (list of (np.ndarray | list, np.ndarray | list), np.ndarray)
     """
-    rng = np.random.RandomState(config.seed)
+    rng = np.random.RandomState(seed)
     all_traces = []
     for i in range(config.trace_sim_count):
         p_transition = 1 - 1 / rng.randint(30, 100)
@@ -171,7 +181,7 @@ def load_sim_traces_process(length=490):
                 state = doubly_exponential(state, high_thresh, low_thresh, rng)
         all_traces.append((all_t, all_bandwidth))
 
-    all_rtts = np.random.RandomState(config.seed).random(size=len(all_traces)) * 180 + 20
+    all_rtts = np.random.RandomState(seed).random(size=len(all_traces)) * 180 + 20
 
     return all_traces, all_rtts
 

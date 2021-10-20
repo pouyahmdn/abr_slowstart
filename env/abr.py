@@ -45,7 +45,7 @@ class ABRSimEnv(object):
         https://dl.acm.org/citation.cfm?id=2787486
     """
 
-    def __init__(self):
+    def __init__(self, test_mode=False):
         # observation and action space
         self.trace = None
         self.rtt = None
@@ -65,7 +65,10 @@ class ABRSimEnv(object):
         # set up seed
         self.seed(config.seed)
         # load all trace files
-        self.all_traces, self.all_rtts = load_traces()
+        if not test_mode:
+            self.all_traces, self.all_rtts = load_traces(seed=config.seed)
+        else:
+            self.all_traces, self.all_rtts = load_traces(seed=config.seed+1)
         # load all video chunk sizes
         self.chunk_sizes = load_chunk_sizes()
         # mapping between action and bitrate level

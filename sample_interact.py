@@ -13,7 +13,9 @@ def run_trajectories():
     # Launch ABR environment
     print('Setting up environment..')
     env = ABRSimEnv()
-
+    # Use this command instead when you want to evaluate your policy
+    # env = ABRSimEnv(test_mode=True)
+    
     # Shorthand for number of actions
     act_len = env.action_space.n
 
