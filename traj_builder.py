@@ -50,7 +50,7 @@ def run_trajectories(env, policy_agent, save_path):
             traj[trace_index][epi_step][:size_obs] = obs
             traj[trace_index][epi_step][size_obs] = act
             traj[trace_index][epi_step][size_obs+1] = rew
-            traj[trace_index][epi_step][size_obs+1:2*size_obs+1] = next_obs
+            traj[trace_index][epi_step][size_obs+2:2*size_obs+2] = next_obs
             traj[trace_index][epi_step][2*size_obs+2] = float(done)
 
             # Episode should not finish before video length
