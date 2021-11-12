@@ -14,9 +14,9 @@ parser.add_argument('--log_to', type=str, default='print',
                     help='logging destination, "print" or a filepath (default: print)')
 parser.add_argument('--output_folder', type=str, default='./output/',
                     help='Output folder')
-parser.add_argument('--integrate_thr', action='store_false',
+parser.add_argument('--integrate_thr', action='store_true',
                     help='Use integrated throughput trace')
-parser.add_argument('--disable_slow_start', action='store_false',
+parser.add_argument('--disable_slow_start', action='store_true',
                     help='Do not use CCP slow start')
 parser.add_argument('--add_rnd_policy', action='store_true',
                     help='Add random policy to logged policies')
